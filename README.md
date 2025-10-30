@@ -1,171 +1,110 @@
-# 🧩 Proyecto React – Tienda Fullstack (Frontend)
+# 📚 Booksy SPA - Tienda de Libros
 
-Este proyecto fue generado con **Create React App (CRA)** y utiliza **React 19**, **React Bootstrap**, y **React Router 7** para construir una aplicación web moderna, modular y testeable.  
-El objetivo es desarrollar una **interfaz dinámica** con manejo de rutas, formularios y pruebas automatizadas con **Testing Library**.
+Aplicación web SPA desarrollada con **React 19** para la gestión y compra de libros. Incluye autenticación de usuarios, consumo de API, almacenamiento local, animaciones y recursos nativos simulados.
 
----
+## ✨ Características Principales
 
-## 🚀 Instalación
+- 🔐 **Autenticación**: Login y registro con validaciones y API
+- 📖 **Catálogo de Libros**: Visualización de libros desde API y gestión personal
+- 🛒 **Carrito de Compras**: Agregar libros al carrito con contador
+- ⭐ **Marcar como Leído**: Sistema de libros leídos
+- ➕ **CRUD Personal**: Agregar, editar y eliminar libros personales
+- 🎨 **Animaciones**: Transiciones suaves con Framer Motion
+- 📱 **Responsive**: Diseño adaptativo con Bootstrap
+- 💾 **Almacenamiento Local**: Persistencia de datos de usuario
+- 📷 **Imagen de Perfil**: Subida simulada de imagen (cámara/galería)
+
+## 🚀 Instalación y Ejecución
 
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/profe-robert/react-app-completa
-cd react-app-completa
+git clone <repo-url>
+cd "Tarea aplicaciones moviles"
 ```
 
-Instalar dependencias:
+2. Instalar dependencias:
+```bash
 npm install
+```
 
-Ejecutar el entorno de desarrollo:
+3. Ejecutar en desarrollo:
+```bash
 npm start
+```
 
-Ejecutar los tests:
-npm test
-
-Construir el proyecto para producción:
+4. Construir para producción:
+```bash
 npm run build
-
-🧠 Dependencias del proyecto
-
-📦 dependencies
- ```bash
- {
- "@testing-library/dom": "^10.4.1",
- "@testing-library/jest-dom": "^6.9.1",
- "@testing-library/user-event": "^13.5.0",
- "bootstrap": "^5.3.8",
- "react": "^19.2.0",
- "react-bootstrap": "^2.10.10",
- "react-dom": "^19.2.0",
- "react-hook-form": "^7.64.0",
- "react-router-dom": "^7.9.4",
- "react-scripts": "5.0.1",
- "web-vitals": "^2.1.4"
- }
- ```
-
-🧪 devDependencies
- ```bash
- {
-    "@testing-library/react": "^16.3.0"
- }
- ```
-
-🧩 Estructura recomendada del proyecto
- ```bash 
- src/
- ├─ app/
- │  └─ routes.js
- │
- ├─ components/
- │  ├─ NavBar.jsx
- │  └─ products/                # (carpeta para componentes de productos)
- │
- ├─ context/
- │  └─ AppContext.js
- │
- ├─ data/
- │  └─ gaming.mock.js
- │
- ├─ pages/
- │  ├─ Contact.jsx
- │  ├─ Contact.test.jsx
- │  ├─ Home.jsx
- │  ├─ Products.jsx
- │  └─ Products.test.jsx
- │
- ├─ App.css
- ├─ App.js
- ├─ index.css
- ├─ index.js
- ├─ logo.svg
- ├─ reportWebVitals.js
- └─ setupTests.js
- ``` 
-
-🧰 Scripts principales
-Comando	        Descripción
-npm start	    Ejecuta el servidor de desarrollo en http://localhost:3000/.
-npm test	    Ejecuta los tests de Jest + Testing Library.
-npm run build	Genera una versión optimizada para producción.
-npm run eject	Expone la configuración interna de CRA (no recomendado).
-
-🧪 Pruebas Automatizadas
-El proyecto usa Jest + React Testing Library.
-Archivos de prueba terminan en .test.jsx.
-
-Ejemplo de test simple:
-```bash
-import { render, screen } from '@testing-library/react';
-import Contact from './Contact';
-
-test('se monta correctamente y muestra el título', () => {
-  render(<Contact />);
-  const titulo = screen.getByRole('heading', { name: /contacto/i });
-  expect(titulo).toBeInTheDocument();
-});
 ```
 
-🎨 Estilos
-El proyecto usa Bootstrap 5 y React Bootstrap para componentes visuales.
-```bash
-Importa Bootstrap en src/index.js:
-import 'bootstrap/dist/css/bootstrap.min.css';
+## �️ Tecnologías Utilizadas
+
+- **React 19** - Framework principal
+- **React Router DOM** - Navegación SPA
+- **Bootstrap 5** - Estilos y componentes UI
+- **Framer Motion** - Animaciones
+- **Axios** - Cliente HTTP para API
+- **React Hook Form** - Manejo de formularios
+- **Context API** - Gestión de estado global
+- **LocalStorage** - Persistencia local
+
+## 📡 API Endpoints
+
+- **Base URL**: `https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW`
+- **Autenticación**:
+  - `POST /auth/login` - Iniciar sesión
+  - `POST /auth/signup` - Registrarse
+- **Libros**:
+  - `GET /books` - Obtener catálogo de libros (requiere token)
+
+## 🧩 Estructura del Proyecto
+
 ```
-🧩 Navegación con React Router
-Ejemplo básico de rutas:
-```bash
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Products from './pages/Products/Products';
-import Contact from './pages/Contact/Contact';
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/productos" element={<Products />} />
-        <Route path="/contacto" element={<Contact />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
-```
-🧩 Formulario con React Hook Form
-Ejemplo de uso en un componente:
-```bash
-import { useForm } from 'react-hook-form';
-
-function ContactForm() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('nombre')} placeholder="Nombre" />
-      <input {...register('correo')} placeholder="Correo" />
-      <textarea {...register('mensaje')} placeholder="Mensaje" />
-      <button type="submit">Enviar</button>
-    </form>
-  );
-}
+src/
+├── app/
+│   ├── routes.js          # Configuración de rutas
+│   └── components/
+│       ├── NavBar.jsx     # Barra de navegación
+│       └── books/
+│           ├── BookCard.jsx    # Tarjeta de libro
+│           ├── BooksGrid.jsx   # Cuadrícula de libros
+│           └── Filters.jsx     # Filtros por categoría
+├── context/
+│   └── contextoAplicacion.js   # Contextos globales
+├── data/
+│   └── libros.mock.js     # Datos mock de libros
+├── pages/
+│   ├── Libros.jsx         # Página de libros
+│   ├── IniciarSesion.jsx  # Login
+│   ├── Registrarse.jsx    # Registro
+│   ├── Perfil.jsx         # Perfil de usuario
+│   └── Home.jsx           # Página principal
+└── components/
+    └── Notificacion.jsx   # Componente de notificaciones
 ```
 
+## 🎯 Funcionalidades MVP
 
-test unitarios Jest
+- ✅ Diseño coherente y responsive
+- ✅ Formularios validados (registro, login)
+- ✅ Navegación entre páginas
+- ✅ Gestión de estado (carrito, auth, notificaciones)
+- ✅ Almacenamiento local (libros leídos, personales)
+- ✅ Recursos nativos simulados (subida de imagen)
+- ✅ Animaciones en la interfaz
+- ✅ Consumo de API real
+
+## � Pruebas
+
 ```bash
-Watch Usage: Press w to show more.
-PASS  src/pages/Products.test.jsx (8.132 s)
-PASS  src/pages/Contact.test.jsx (8.179 s)
-
-Test Suites: 2 passed, 2 total
-Tests:       7 passed, 7 total
-Snapshots:   0 total
-Time:        20.491 s
-Ran all test suites.
-
-Watch Usage: Press w to show more.
+npm test
 ```
+
+Ejecuta tests con Jest y React Testing Library.
+
+## 📝 Notas de Desarrollo
+
+- El proyecto incluye commits graduales para mostrar progreso incremental
+- Manejo de errores con notificaciones toast
+- Fallback a datos mock si la API falla
+- Animaciones escalonadas en la carga de libros
