@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { usarCarrito } from '../context/contextoAplicacion';
+import { usarCarrito, usarAutenticacion } from '../context/contextoAplicacion';
 import { LIBROS, CATEGORIAS } from '../datos/libros.mock';
 // nos aseguramos que estas rutas esten perfectas
 import Filtros from '../components/books/filtros';
@@ -10,6 +10,7 @@ import CuadriculaLibros from '../components/books/cuadriculaLibros';
 
 export default function Libros() {
     const { agregarAlCarrito } = usarCarrito();
+    const { token } = usarAutenticacion();
     const [filter, setFilter] = useState('all');
     const [readBooks, setReadBooks] = useState(JSON.parse(localStorage.getItem('readBooks') || '[]'));
     const [books, setBooks] = useState([]);
@@ -21,7 +22,8 @@ export default function Libros() {
         const fetchBooks = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW/books');
+                const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+                const response = await axios.get('https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW/books', config);
                 setBooks(response.data);
             } catch (err) {
                 setError('Error al cargar libros');
@@ -33,7 +35,7 @@ export default function Libros() {
             }
         };
         fetchBooks();
-    }, []);
+    }, [token]);
 
     const list = useMemo(() => {
         return filter === 'all'
