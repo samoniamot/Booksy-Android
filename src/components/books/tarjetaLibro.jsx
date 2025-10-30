@@ -1,7 +1,8 @@
 import { Card, Button, Badge } from 'react-bootstrap';
 
-export default function TarjetaLibro({ libro, onAdd, onMarkRead, isRead }) {
-    const { titulo, autor, precio, categoria, urlImagen } = libro;
+export default function TarjetaLibro({ libro, onAdd, onMarkRead, isRead, onEdit, onDelete }) {
+    const { titulo, autor, precio, categoria, urlImagen, id } = libro;
+    const isUserBook = typeof id === 'number';
 
     return (
         <Card className="h-100 shadow-sm">
@@ -43,6 +44,12 @@ export default function TarjetaLibro({ libro, onAdd, onMarkRead, isRead }) {
             >
             {isRead ? "leido" : "marcar como leido"}
             </Button>
+            {isUserBook && (
+                <>
+                    <Button variant="warning" size="sm" onClick={() => onEdit(id, libro)} className="ms-2">Editar</Button>
+                    <Button variant="danger" size="sm" onClick={() => onDelete(id)} className="ms-2">Eliminar</Button>
+                </>
+            )}
         </Card.Body>
         </Card>
     );

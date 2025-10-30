@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import TarjetaLibro from './tarjetaLibro';
 
-export default function CuadriculaLibros({ items, onAdd, onMarkRead, isRead }) {
+export default function CuadriculaLibros({ items, onAdd, onMarkRead, isRead, onEdit, onDelete }) {
     // esta funcion hace el mapeo de libros, no la compliques
     return (
         <Row xs={1} sm={2} lg={3} className="g-3">
@@ -9,7 +9,7 @@ export default function CuadriculaLibros({ items, onAdd, onMarkRead, isRead }) {
         {items.map(p => (
             <Col key={p.id}>
             {/* usamos el bookcard que ya hicimos */}
-            <TarjetaLibro libro={p} onAdd={() => onAdd(p)} onMarkRead={() => onMarkRead(p.id)} isRead={isRead(p.id)} />
+            <TarjetaLibro libro={p} onAdd={() => onAdd(p)} onMarkRead={() => onMarkRead(p.id)} isRead={isRead(p.id)} onEdit={onEdit} onDelete={onDelete} />
             </Col>
         ))}
         </Row>

@@ -19,6 +19,7 @@ export default function Libros() {
     const [error, setError] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
     const [newBook, setNewBook] = useState({ titulo: '', autor: '', categoria: '', precio: '', imagen: '' });
+    const [editingBook, setEditingBook] = useState(null);
     console.log('pagina de libros cargada');
 
     useEffect(() => {
@@ -61,7 +62,13 @@ export default function Libros() {
         localStorage.setItem('userBooks', JSON.stringify(newBooks));
     };
 
-    const editUserBook = (id, updatedBook) => {
+    const editUserBook = (id, book) => {
+        setEditingBook(book);
+        setNewBook(book);
+        setShowAddForm(true);
+    };
+
+    const saveEditUserBook = (id, updatedBook) => {
         const newBooks = userBooks.map(b => b.id === id ? { ...b, ...updatedBook } : b);
         setUserBooks(newBooks);
         localStorage.setItem('userBooks', JSON.stringify(newBooks));
@@ -83,10 +90,10 @@ export default function Libros() {
             <h2 className="mb-2">catalogo de libros</h2>
             <p className="text-muted mb-3">explora nuestro catalogo de libros</p>
 
-            <Button onClick={() => setShowAddForm(!showAddForm)} className="mb-3">Agregar Libro Personal</Button>
+            <Button onClick={() => { setShowAddForm(!showAddForm); if (!showAddForm) setEditingBook(null); }} className="mb-3">{editingBook ? 'Editar Libro' : 'Agregar Libro Personal'}</Button>
 
             {showAddForm && (
-                <Form onSubmit={(e) => { e.preventDefault(); addUserBook(newBook); setNewBook({ titulo: '', autor: '', categoria: '', precio: '', imagen: '' }); setShowAddForm(false); }} className="mb-3">
+                <Form onSubmit={(e) => { e.preventDefault(); if (editingBook) { saveEditUserBook(editingBook.id, newBook); setEditingBook(null); } else { addUserBook(newBook); } setNewBook({ titulo: '', autor: '', categoria: '', precio: '', imagen: '' }); setShowAddForm(false); }} className="mb-3">
                     <Row>
                         <Col><Form.Control placeholder="Título" value={newBook.titulo} onChange={(e) => setNewBook({...newBook, titulo: e.target.value})} required /></Col>
                         <Col><Form.Control placeholder="Autor" value={newBook.autor} onChange={(e) => setNewBook({...newBook, autor: e.target.value})} required /></Col>
@@ -111,7 +118,7 @@ export default function Libros() {
             total={books.length}
             />
 
-            <CuadriculaLibros items={list} onAdd={agregarAlCarrito} onMarkRead={markAsRead} isRead={isRead} />
+            <CuadriculaLibros items={list} onAdd={agregarAlCarrito} onMarkRead={markAsRead} isRead={isRead} onEdit={editUserBook} onDelete={deleteUserBook} />
         </Container>
         </motion.main>
     );
