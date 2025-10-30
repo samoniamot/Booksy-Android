@@ -1,20 +1,29 @@
 import { useMemo, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useCart } from '../context/AppContext';
-import { BOOKS, CATEGORIES } from '../data/books.mock';
+import { usarCarrito } from '../context/contextoAplicacion';
+import { LIBROS, CATEGORIAS } from '../datos/libros.mock';
 // nos aseguramos que estas rutas esten perfectas
-import Filters from '../components/books/Filters';
-import BookGrid from '../components/books/BookGrid';
+import Filtros from '../components/books/filtros';
+import CuadriculaLibros from '../components/books/cuadriculaLibros';
 
 export default function Books() {
-    const { addToCart } = useCart();
+    const { agregarAlCarrito } = usarCarrito();
     const [filter, setFilter] = useState('all');
+    const [readBooks, setReadBooks] = useState(JSON.parse(localStorage.getItem('readBooks') || '[]'));
 
     const list = useMemo(() => {
         return filter === 'all'
-        ? BOOKS
-        : BOOKS.filter(p => p.category === filter);
+        ? LIBROS
+        : LIBROS.filter(p => p.categoria === filter);
     }, [filter]);
+
+    const markAsRead = (id) => {
+        const newRead = [...readBooks, id];
+        setReadBooks(newRead);
+        localStorage.setItem('readBooks', JSON.stringify(newRead));
+    };
+
+    const isRead = (id) => readBooks.includes(id);
 
     return (
         <main>
@@ -22,14 +31,14 @@ export default function Books() {
             <h2 className="mb-2">catalogo de libros</h2>
             <p className="text-muted mb-3">explora nuestro catalogo de libros</p>
 
-            <Filters
+            <Filtros
             current={filter}
             onChange={setFilter}
-            options={CATEGORIES}
-            total={BOOKS.length}
+            options={CATEGORIAS}
+            total={LIBROS.length}
             />
 
-            <BookGrid items={list} onAdd={addToCart} />
+            <CuadriculaLibros items={list} onAdd={agregarAlCarrito} onMarkRead={markAsRead} isRead={isRead} />
         </Container>
         </main>
     );
