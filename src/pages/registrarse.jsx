@@ -13,6 +13,20 @@ export default function Registrarse() {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
+        const errors = [];
+        if (!data.name || data.name.trim().length < 2) {
+            errors.push('Nombre debe tener al menos 2 caracteres');
+        }
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+            errors.push('Email inválido');
+        }
+        if (!data.password || data.password.length < 6) {
+            errors.push('Password debe tener al menos 6 caracteres');
+        }
+        if (errors.length > 0) {
+            setError(errors.join(', '));
+            return;
+        }
         setLoading(true);
         setError('');
         try {

@@ -15,6 +15,17 @@ export default function IniciarSesion() {
     const { iniciarSesion } = useAutenticacion(); // agregar al context
 
     const onSubmit = async (data) => {
+        const errors = [];
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+            errors.push('mail inválido');
+        }
+        if (!data.password || data.password.length < 6) {
+            errors.push('la contrasena debe tener al menos 6 caracteres');
+        }
+        if (errors.length > 0) {
+            setError(errors.join(', '));
+            return;
+        }
         setLoading(true);
         setError('');
         try {
@@ -22,7 +33,7 @@ export default function IniciarSesion() {
             iniciarSesion(res.data.authToken, res.data.user);
             navigate('/libros');
         } catch (err) {
-            setError('Error en login: ' + (err.response?.data?.message || err.message));
+            setError('Error en el login: ' + (err.response?.data?.message || err.message));
         } finally {
             setLoading(false);
         }
@@ -52,7 +63,7 @@ export default function IniciarSesion() {
                     <Form.Control.Feedback type="invalid">{errors.password?.message}</Form.Control.Feedback>
                 </Form.Group>
                 <Button type="submit" disabled={loading}>
-                    {loading ? 'Cargando...' : 'Iniciar Sesion'}
+                    {loading ? 'Cargando..' : 'Iniciar sesion'}
                 </Button>
             </Form>
         </Container>
