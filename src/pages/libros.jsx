@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Button, Form, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { usarCarrito, usarAutenticacion } from '../context/contextoAplicacion';
@@ -17,6 +17,8 @@ export default function Libros() {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [newBook, setNewBook] = useState({ titulo: '', autor: '', categoria: '', precio: '', imagen: '' });
     console.log('pagina de libros cargada');
 
     useEffect(() => {
@@ -80,6 +82,24 @@ export default function Libros() {
         <Container>
             <h2 className="mb-2">catalogo de libros</h2>
             <p className="text-muted mb-3">explora nuestro catalogo de libros</p>
+
+            <Button onClick={() => setShowAddForm(!showAddForm)} className="mb-3">Agregar Libro Personal</Button>
+
+            {showAddForm && (
+                <Form onSubmit={(e) => { e.preventDefault(); addUserBook(newBook); setNewBook({ titulo: '', autor: '', categoria: '', precio: '', imagen: '' }); setShowAddForm(false); }} className="mb-3">
+                    <Row>
+                        <Col><Form.Control placeholder="Título" value={newBook.titulo} onChange={(e) => setNewBook({...newBook, titulo: e.target.value})} required /></Col>
+                        <Col><Form.Control placeholder="Autor" value={newBook.autor} onChange={(e) => setNewBook({...newBook, autor: e.target.value})} required /></Col>
+                        <Col><Form.Select value={newBook.categoria} onChange={(e) => setNewBook({...newBook, categoria: e.target.value})} required>
+                            <option value="">Categoría</option>
+                            {CATEGORIAS.map(c => <option key={c} value={c}>{c}</option>)}
+                        </Form.Select></Col>
+                        <Col><Form.Control type="number" placeholder="Precio" value={newBook.precio} onChange={(e) => setNewBook({...newBook, precio: parseFloat(e.target.value)})} required /></Col>
+                        <Col><Form.Control placeholder="Imagen URL" value={newBook.imagen} onChange={(e) => setNewBook({...newBook, imagen: e.target.value})} /></Col>
+                        <Col><Button type="submit">Agregar</Button></Col>
+                    </Row>
+                </Form>
+            )}
 
             {loading && <p>Cargando libros...</p>}
             {error && <p className="text-danger">{error}</p>}
