@@ -6,11 +6,13 @@ import Contacto from '../pages/contacto';
 import IniciarSesion from '../pages/iniciarSesion';
 import Registrarse from '../pages/registrarse';
 import Perfil from '../pages/perfil';
+import Notificacion from '../components/Notificacion';
 
 function RutasAplicacion(){
     return (
         <BrowserRouter>
         <BarraNavegacion />
+        <Notificacion />
         {/* aqui se definen las rutas de la pagina */}
         <Routes>
             <Route path="/" element={<Inicio />} />

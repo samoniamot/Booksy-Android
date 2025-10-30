@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const ContextoCarrito = createContext(null);
 const ContextoAutenticacion = createContext(null);
+const ContextoNotificaciones = createContext(null);
 
 export function ProveedorAplicacion({ children }){
     const [contadorCarrito, setContadorCarrito] = useState(0);
@@ -10,6 +11,13 @@ export function ProveedorAplicacion({ children }){
 
     const [usuario, setUsuario] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token') || null);
+
+    const [notificacion, setNotificacion] = useState(null); // {tipo: 'success'|'error', mensaje: string}
+
+    const mostrarNotificacion = (tipo, mensaje) => {
+        setNotificacion({ tipo, mensaje });
+        setTimeout(() => setNotificacion(null), 3000);
+    };
 
     useEffect(() => {
         if (token) {
@@ -23,6 +31,7 @@ export function ProveedorAplicacion({ children }){
         setUsuario(datosUsuario);
         localStorage.setItem('token', nuevoToken);
         localStorage.setItem('usuario', JSON.stringify(datosUsuario));
+        mostrarNotificacion('success', 'Sesion iniciada correctamente');
     };
 
     const cerrarSesion = () => {
@@ -30,12 +39,15 @@ export function ProveedorAplicacion({ children }){
         setUsuario(null);
         localStorage.removeItem('token');
         localStorage.removeItem('usuario');
+        mostrarNotificacion('success', 'Sesion cerrada');
     };
 
     return (
         <ContextoAutenticacion.Provider value={{ usuario, token, iniciarSesion, cerrarSesion }}>
             <ContextoCarrito.Provider value={{ contadorCarrito, agregarAlCarrito }}>
-                {children}
+                <ContextoNotificaciones.Provider value={{ notificacion, mostrarNotificacion }}>
+                    {children}
+                </ContextoNotificaciones.Provider>
             </ContextoCarrito.Provider>
         </ContextoAutenticacion.Provider>
     );
@@ -47,8 +59,18 @@ export function useCarrito(){
     return ctx;
 }
 
-export function useAutenticacion(){
-    const ctx = useContext(ContextoAutenticacion);
-    if(!ctx) throw new Error('useAutenticacion debe usarse dentro de ProveedorAplicacion');
+export function usarNotificaciones(){
+    const ctx = useContext(ContextoNotificaciones);
+    if(!ctx) throw new Error('usarNotificaciones debe usarse dentro de ProveedorAplicacion');
     return ctx;
 }
+
+export function usarAutenticacion(){
+    const ctx = useContext(ContextoAutenticacion);
+    if(!ctx) throw new Error('usarAutenticacion debe usarse dentro de ProveedorAplicacion');
+    return ctx;
+}
+
+// alias para compatibilidad
+export const useAutenticacion = usarAutenticacion;
+export const usarCarrito = useCarrito;
