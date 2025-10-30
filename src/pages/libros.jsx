@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 import { usarCarrito } from '../context/contextoAplicacion';
 import { LIBROS, CATEGORIAS } from '../datos/libros.mock';
 // nos aseguramos que estas rutas esten perfectas
@@ -11,13 +12,34 @@ export default function Libros() {
     const { agregarAlCarrito } = usarCarrito();
     const [filter, setFilter] = useState('all');
     const [readBooks, setReadBooks] = useState(JSON.parse(localStorage.getItem('readBooks') || '[]'));
+    const [books, setBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     console.log('pagina de libros cargada');
+
+    useEffect(() => {
+        const fetchBooks = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get('https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW/books');
+                setBooks(response.data);
+            } catch (err) {
+                setError('Error al cargar libros');
+                console.error(err);
+                // fallback to mock
+                setBooks(LIBROS);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchBooks();
+    }, []);
 
     const list = useMemo(() => {
         return filter === 'all'
-        ? LIBROS
-        : LIBROS.filter(p => p.categoria === filter);
-    }, [filter]);
+        ? books
+        : books.filter(p => p.categoria === filter);
+    }, [filter, books]);
 
     const markAsRead = (id) => {
         const newRead = [...readBooks, id];
@@ -37,11 +59,14 @@ export default function Libros() {
             <h2 className="mb-2">catalogo de libros</h2>
             <p className="text-muted mb-3">explora nuestro catalogo de libros</p>
 
+            {loading && <p>Cargando libros...</p>}
+            {error && <p className="text-danger">{error}</p>}
+
             <Filtros
             current={filter}
             onChange={setFilter}
             options={CATEGORIAS}
-            total={LIBROS.length}
+            total={books.length}
             />
 
             <CuadriculaLibros items={list} onAdd={agregarAlCarrito} onMarkRead={markAsRead} isRead={isRead} />
