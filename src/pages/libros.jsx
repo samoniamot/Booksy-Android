@@ -1,13 +1,14 @@
 import { useMemo, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useCarrito } from '../context/contextoAplicacion';
+import { motion } from 'framer-motion';
+import { usarCarrito } from '../context/contextoAplicacion';
 import { LIBROS, CATEGORIAS } from '../datos/libros.mock';
 // nos aseguramos que estas rutas esten perfectas
 import Filtros from '../components/books/filtros';
 import CuadriculaLibros from '../components/books/cuadriculaLibros';
 
 export default function Libros() {
-    const { agregarAlCarrito } = useCarrito();
+    const { agregarAlCarrito } = usarCarrito();
     const [filter, setFilter] = useState('all');
     const [readBooks, setReadBooks] = useState(JSON.parse(localStorage.getItem('readBooks') || '[]'));
     console.log('pagina de libros cargada');
@@ -27,7 +28,11 @@ export default function Libros() {
     const isRead = (id) => readBooks.includes(id);
 
     return (
-        <main>
+        <motion.main
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
         <Container>
             <h2 className="mb-2">catalogo de libros</h2>
             <p className="text-muted mb-3">explora nuestro catalogo de libros</p>
@@ -41,6 +46,6 @@ export default function Libros() {
 
             <CuadriculaLibros items={list} onAdd={agregarAlCarrito} onMarkRead={markAsRead} isRead={isRead} />
         </Container>
-        </main>
+        </motion.main>
     );
 }
