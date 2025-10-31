@@ -6,23 +6,28 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.booksy.data.local.EntidadLibro
+import com.example.booksy.ui.pantallas.*
 import com.example.booksy.ui.theme.BooksyTheme
+import com.example.booksy.viewmodel.ModeloVistaLibros
+import androidx.lifecycle.viewmodel.compose.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class ActividadPrincipal : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BooksyTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    AppNavegacion()
                 }
             }
         }
@@ -30,17 +35,36 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BooksyTheme {
-        Greeting("Android")
+fun AppNavegacion() {
+    val navController = rememberNavController()
+    val modeloVistaLibros: ModeloVistaLibros = viewModel()
+    
+    NavHost(navController = navController, startDestination = "login") {
+        composable("login") {
+            PantallaInicioSesion(
+                onNavegarRegistro = { navController.navigate("registro") },
+                onLoginExitoso = { navController.navigate("libros") }
+            )
+        }
+        composable("registro") {
+            PantallaRegistro(
+                onNavegarLogin = { navController.navigate("login") },
+                onRegistroExitoso = { navController.navigate("libros") }
+            )
+        }
+        composable("libros") {
+            PantallaLibros(
+                modeloVista = modeloVistaLibros,
+                onAgregarAlCarrito = { libro ->
+                    modeloVistaLibros.agregarAlCarrito()
+                },
+                onNavegarPerfil = { navController.navigate("perfil") }
+            )
+        }
+        composable("perfil") {
+            PantallaPerfil(
+                onNavegarLibros = { navController.navigate("libros") }
+            )
+        }
     }
 }
