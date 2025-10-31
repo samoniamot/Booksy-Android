@@ -1,6 +1,10 @@
 package com.example.booksy.ui.pantallas
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.runtime.*
+import androidx.compose.animation.core.*
+import androidx.compose.ui.draw.scale
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -103,10 +107,26 @@ fun TarjetaLibro(
             Text(libro.categoria, style = MaterialTheme.typography.bodySmall)
             
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Button(onClick = onAgregarAlCarrito) {
+                val scaleAgregar = remember { Animatable(1f) }
+                val scaleLeido = remember { Animatable(1f) }
+                Button(
+                    onClick = {
+                        onAgregarAlCarrito()
+                        scaleAgregar.animateTo(0.9f)
+                        scaleAgregar.animateTo(1f)
+                    },
+                    modifier = Modifier.scale(scaleAgregar.value)
+                ) {
                     Text("Agregar")
                 }
-                Button(onClick = onMarcarLeido) {
+                Button(
+                    onClick = {
+                        onMarcarLeido()
+                        scaleLeido.animateTo(0.9f)
+                        scaleLeido.animateTo(1f)
+                    },
+                    modifier = Modifier.scale(scaleLeido.value)
+                ) {
                     Text(if (libro.leido) "Leído" else "Marcar leído")
                 }
             }

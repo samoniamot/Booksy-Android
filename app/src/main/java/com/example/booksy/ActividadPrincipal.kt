@@ -3,6 +3,8 @@ package com.example.booksy
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -39,7 +41,34 @@ fun AppNavegacion() {
     val navController = rememberNavController()
     val modeloVistaLibros: ModeloVistaLibros = viewModel()
     
-    NavHost(navController = navController, startDestination = "login") {
+    NavHost(
+        navController = navController, 
+        startDestination = "login",
+        enterTransition = { 
+            slideInHorizontally(
+                initialOffsetX = { 1000 },
+                animationSpec = tween(300)
+            ) + fadeIn(animationSpec = tween(300))
+        },
+        exitTransition = { 
+            slideOutHorizontally(
+                targetOffsetX = { -1000 },
+                animationSpec = tween(300)
+            ) + fadeOut(animationSpec = tween(300))
+        },
+        popEnterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -1000 },
+                animationSpec = tween(300)
+            ) + fadeIn(animationSpec = tween(300))
+        },
+        popExitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { 1000 },
+                animationSpec = tween(300)
+            ) + fadeOut(animationSpec = tween(300))
+        }
+    ) {
         composable("login") {
             PantallaInicioSesion(
                 onNavegarRegistro = { navController.navigate("registro") },
