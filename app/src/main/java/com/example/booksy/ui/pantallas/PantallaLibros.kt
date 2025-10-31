@@ -16,14 +16,15 @@ import com.example.booksy.viewmodel.ModeloVistaLibros
 @Composable
 fun PantallaLibros(
     modeloVista: ModeloVistaLibros = viewModel(),
-    onAgregarAlCarrito: (EntidadLibro) -> Unit
+    onAgregarAlCarrito: (EntidadLibro) -> Unit,
+    onNavegarPerfil: () -> Unit
 ) {
     val estadoLibros by modeloVista.estadoLibros.collectAsState()
     val filtro by modeloVista.filtro.collectAsState()
     val contadorCarrito by modeloVista.contadorCarrito.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // Header con filtros
+        // Header con filtros y perfil
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -32,7 +33,16 @@ fun PantallaLibros(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("Libros", style = MaterialTheme.typography.headlineMedium)
-            Text("Carrito: $contadorCarrito", style = MaterialTheme.typography.bodyLarge)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Carrito: $contadorCarrito", style = MaterialTheme.typography.bodyLarge)
+                Spacer(modifier = Modifier.width(16.dp))
+                IconButton(onClick = onNavegarPerfil) {
+                    Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.Person,
+                        contentDescription = "Perfil"
+                    )
+                }
+            }
         }
 
         // Filtros
@@ -91,7 +101,7 @@ fun TarjetaLibro(
             Text(libro.autor, style = MaterialTheme.typography.bodyMedium)
             Text("$${libro.precio}", style = MaterialTheme.typography.bodyLarge)
             Text(libro.categoria, style = MaterialTheme.typography.bodySmall)
-
+            
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Button(onClick = onAgregarAlCarrito) {
                     Text("Agregar")
