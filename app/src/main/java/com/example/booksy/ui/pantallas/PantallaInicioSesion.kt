@@ -82,7 +82,7 @@ fun PantallaInicioSesion(
                 errorContrasena = if (contrasena.isBlank()) "Contraseña requerida" else null
 
                 if (errorEmail == null && errorContrasena == null) {
-                    modeloVista.iniciarSesion(email, contrasena)
+                    modeloVista.inicarSesion(email, contrasena)
                 }
             },
             modifier = Modifier.fillMaxWidth(),
