@@ -1,54 +1,56 @@
-booksy app de libros
+booksy - app de libros para ep3
 
-esta es una app que hice para la evaluacion ep3 de desarrollo de aplicaciones moviles
+hola, esta es mi app que hice para la evaluacion parcial 3 de desarrollo de aplicaciones moviles
 
-el caso que eligi fue el de educacion, una plataforma para estudiantes y profesores para manejar libros
+es una app para estudiantes y profesores que quieren manejar sus libros de estudio
 
-la app tiene:
-- login y registro con validaciones
-- pantalla de libros con grid y filtros
-- pantalla de perfil con imagen
-- animaciones basicas
-- guarda datos localmente
-- usa api externa
+tiene estas cosas:
+- login y registro con validaciones basicas
+- una pantalla con libros en grid con filtros
+- pantalla de perfil donde puedes poner tu foto
+- animaciones simples
+- guarda cosas en la base de datos del telefono
+- conecta con una api externa
 
-tecnologias que use:
-kotlin
-jetpack compose
-room para base de datos
-retrofit para api
-hilt para dependencias
-navigation compose
+lo que use para hacerla:
+kotlin porque es lo que vimos en clase
+jetpack compose para la interfaz
+room para guardar datos localmente
+retrofit para llamar a la api
+hilt para no tener que crear todo manualmente
+navigation compose para moverme entre pantallas
 
-como instalar:
-1. clona el repo
-2. abre en android studio
-3. corre en emulador
+para instalarla:
+1. bajas el codigo del repo
+2. lo abres en android studio
+3. lo corres en un emulador o telefono
 
-la app consume esta api: https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW
+la api que usa es: https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW
 
-endpoints que usa:
-post /auth/login - para iniciar sesion
-post /auth/signup - para registrarse
-get /auth/me - para obtener perfil
-get /books - para obtener libros
+las llamadas que hace:
+post /auth/login - para loguearte
+post /auth/signup - para crear cuenta
+get /auth/me - para ver tu perfil
+get /books - para traer los libros
 
-la arquitectura es mvvm con viewmodels y flows
+la arquitectura es mvvm que es lo que nos ensenaron
 
-tiene persistencia local con room para los libros
+tiene base de datos local con room para guardar los libros que agregas
 
-los recursos nativos son camara y galeria para la imagen de perfil
+los recursos nativos son la camara y la galeria para cambiar la foto de perfil
 
-las animaciones son transiciones entre pantallas y botones que se achican cuando los presionas
+las animaciones son cuando cambias de pantalla se desliza y los botones se hacen mas pequenos cuando los tocas
 
-el flujo es: login -> libros -> perfil
+el flujo de la app es: entras -> te logueas -> ves los libros -> vas al perfil
 
-tiene manejo de errores y estados de carga
+maneja errores cuando la api no funciona y muestra loading mientras carga
 
-creo que cumple con todos los requisitos del ep3
+creo que cumple con lo que pide el ep3
 
-errores que tiene: algunos bugs en las validaciones, la api a veces falla, los permisos no siempre piden bien
+bugs que tiene: a veces las validaciones no funcionan bien, la api se cae, los permisos de camara no piden siempre
 
-pero funciona mas o menos
+pero mas o menos funciona
 
-usuario de prueba: test@example.com password: test123
+para probar usa: email test@example.com y password test123
+
+espero que le guste al profesor
