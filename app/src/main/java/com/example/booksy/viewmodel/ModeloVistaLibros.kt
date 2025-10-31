@@ -70,6 +70,33 @@ class ModeloVistaLibros @Inject constructor(
         _contadorCarrito.value += 1
     }
 
+    fun crearLibro(titulo: String, autor: String, categoria: String, precio: Double, urlImagen: String? = null) {
+        viewModelScope.launch {
+            val nuevoLibro = EntidadLibro(
+                id = System.currentTimeMillis().toString(),
+                titulo = titulo,
+                autor = autor,
+                categoria = categoria,
+                precio = precio,
+                urlImagen = urlImagen,
+                leido = false
+            )
+            baseDatos.libroDao().insertarLibros(listOf(nuevoLibro))
+        }
+    }
+
+    fun actualizarLibro(libro: EntidadLibro) {
+        viewModelScope.launch {
+            baseDatos.libroDao().actualizarLibro(libro)
+        }
+    }
+
+    fun eliminarLibro(libro: EntidadLibro) {
+        viewModelScope.launch {
+            baseDatos.libroDao().eliminarLibro(libro)
+        }
+    }
+
     fun marcarComoLeido(idLibro: String) {
         viewModelScope.launch {
             val libro = baseDatos.libroDao().obtenerTodosLibros().value?.find { it.id == idLibro }
