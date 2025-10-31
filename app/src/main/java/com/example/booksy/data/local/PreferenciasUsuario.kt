@@ -39,3 +39,17 @@ class PreferenciasUsuario(private val contexto: Context) {
         contexto.almacenDatos.edit { it.clear() }
     }
 }
+    suspend fun obtenerTokenAuth(): String? {
+        return contexto.almacenDatos.data.map { it[TOKEN_AUTH] }.firstOrNull()
+    }
+
+    suspend fun guardarImagenPerfil(uriString: String) {
+        contexto.almacenDatos.edit { prefs ->
+            prefs[stringPreferencesKey("imagen_perfil_uri")] = uriString
+        }
+    }
+
+    val imagenPerfilUri: Flow<String?> = contexto.almacenDatos.data.map { 
+        it[stringPreferencesKey("imagen_perfil_uri")] 
+    }
+}
