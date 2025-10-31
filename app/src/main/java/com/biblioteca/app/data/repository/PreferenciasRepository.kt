@@ -2,14 +2,8 @@ package com.biblioteca.app.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class PreferenciasRepository @Inject constructor(
-    @ApplicationContext private val contexto: Context
-) {
+class PreferenciasRepository(contexto: Context) {
     private val prefs: SharedPreferences = 
         contexto.getSharedPreferences("biblioteca_prefs", Context.MODE_PRIVATE)
     
