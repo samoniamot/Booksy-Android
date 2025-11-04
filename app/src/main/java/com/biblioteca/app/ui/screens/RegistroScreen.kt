@@ -82,7 +82,7 @@ fun RegistroScreen(
         Button(
             onClick = {
                 viewModel.registrar {
-                    onNavegar("prefil")
+                    onNavegar("libros")
                 }
             },
             modifier = Modifier.fillMaxWidth(),

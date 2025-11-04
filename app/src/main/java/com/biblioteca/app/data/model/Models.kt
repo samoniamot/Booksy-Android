@@ -3,7 +3,14 @@ package com.biblioteca.app.data.model
 data class Usuario(
     val id: Int,
     val email: String,
-    val name: String?
+    val nombre: String?
+)
+
+data class Libro(
+    val id: Int,
+    val titulo: String,
+    val autor: String?,
+    val categoria: String?
 )
 
 data class SolicitudLogin(
