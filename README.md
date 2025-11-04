@@ -1,68 +1,43 @@
-booksy aplicacion de biblioteca digital
+booksy - App de libros
 
-esta es una app de android para una biblioteca digital que hice con kotlin y jetpack compose.
+app para estudiantes y profesores que quieren manejar sus libros de estudio. es una biblioteca digital basicmanete
 
-lo que hace:
-login y registro de usuarios
-perfil con foto de camara o galeria
-guarda cosas con sharedpreferences y datastore
-usa api rest con retrofit
-arquitectura mvvm
-animaciones con compose
-valida los formularios
-material design 3
+tiene estas funcionalidades:
+- login y registro con validaciones basicas
+- una pantalla con libros en grid con filtros
+-pantalla de perfil donde puedes poner tu foto
+-animaciones simples
+-guarda cosas en la base de datos del telefono
+-conecta con una api externa
 
-Tecnologias que usamos
-kotlin el lenguaje
-jetpack compose para la ui
-navigation compose para ir de una pantalla a otra
-retrofit para llamar a la api
-coil para cargar imagenes
-datastore para guardar datos
-sharedpreferences para guardar cosas local
-accompanist permissions para los permisos
+lo que use para hacerla:
+-kotlin porque es lo que vimos en clase en el ramo Fullstack
+-jetpack compose para la interfaz
+-"room" para guardar datos localmente
+-retrofit para llamar a la api
+-hilt para no tener que crear todo manualmente
+-navigation compose para moverse entre las pantallas
 
+la api que usa es: https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW
 
-api que usa:
-la app llama a estos endpoints
-post auth login para loguearse
-post auth signup para registrarse
-get auth me para ver el perfil
-url base https x8ki letl twmt n7 xano io api Rfm 61dW
+las llamadas Son:
+post /auth/login - para loguearte
+post /auth/signup - para crear cuenta
+get /auth/me - para ver tu perfil
+get /books - para traer los libros
 
-permisos que necesita:
-la app pide estos permisos
-camera para sacar fotos
-read external storage para elegir fotos de la galeria
+-La arquitectura es mvvm que es lo que nos ensenaron.  tiene base de datos local con room para guardar los libros que agregas. Los recursos nativos son la camara y la galeria para cambiar la foto de perfil
 
-que hace cada pantalla:
+-las animaciones son cuando cambias de pantalla se desliza y los botones se hacen mas pequenos cuando los tocas
 
-login
-valida email y contraseña
-muestra errores con animacion
-va a registro o perfil
+el flujo de la app es: entras -> te logueas -> ves los libros -> vas al perfil
 
-registro
-valida los campos nombre email contraseña
-contraseña minimo 6 letras
-animaciones de transicion
+maneja errores cuando la api no funciona y muestra loading mientras carga
 
-perfil
-muestra datos del usuario
-cambiar foto camara o galeria
-cerrar sesion
-guarda la foto local
+creo que cumple con lo que pide el ep3
 
+bugs que tiene: a veces las validaciones no funcionan bien, la api se cae, los permisos de camara no piden siempre
 
-laboratorios que hicicmos:
- 10 navegacion con navigation compose
- 11 formularios y validaciones
-lab 12 animaciones y estados
-lab 13 camara y galeria
+pero mas o menos funciona
 
-
-notas
-usamos material 3 para el diseño
-mvvm para separar las cosas
-stateflow para el estado
-animaciones basicas con fadein slidein y spring
+para probar usa: email test@example.com y password test123

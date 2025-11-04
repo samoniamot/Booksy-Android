@@ -4,8 +4,8 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.biblioteca.app.data.local.PreferenciasRepository
-import com.biblioteca.app.data.network.RetrofitClient
+import com.biblioteca.app.data.repository.PreferenciasRepository
+import com.biblioteca.app.data.api.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

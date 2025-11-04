@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.biblioteca.app.ui.screens.LibrosScreen
 import com.biblioteca.app.ui.screens.LoginScreen
 import com.biblioteca.app.ui.screens.PerfilScreen
 import com.biblioteca.app.ui.screens.RegistroScreen
@@ -20,7 +21,7 @@ fun AppNavegacion() {
             LoginScreen(
                 onNavegar = { ruta ->
                     navController.navigate(ruta) {
-                        if (ruta == "prefil") {
+                        if (ruta == "libros") {
                             popUpTo("login") { inclusive = true }
                         }
                     }
@@ -32,10 +33,18 @@ fun AppNavegacion() {
             RegistroScreen(
                 onNavegar = { ruta ->
                     navController.navigate(ruta) {
-                        if (ruta == "prefil") {
+                        if (ruta == "libros") {
                             popUpTo("login") { inclusive = true }
                         }
                     }
+                }
+            )
+        }
+        
+        composable("libros") {
+            LibrosScreen(
+                onNavegar = { ruta ->
+                    navController.navigate(ruta)
                 }
             )
         }
@@ -47,6 +56,8 @@ fun AppNavegacion() {
                         navController.navigate(ruta) {
                             popUpTo(0) { inclusive = true }
                         }
+                    } else {
+                        navController.popBackStack()
                     }
                 }
             )

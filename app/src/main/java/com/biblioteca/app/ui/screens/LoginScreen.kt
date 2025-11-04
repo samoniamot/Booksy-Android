@@ -68,7 +68,7 @@ fun LoginScreen(
         Button(
             onClick = {
                 viewModel.login {
-                    onNavegar("prefil")
+                    onNavegar("libros")
                 }
             },
             modifier = Modifier.fillMaxWidth(),
