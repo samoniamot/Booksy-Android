@@ -1,8 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -68,17 +66,11 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     
-    // coil imagenes
+        // coil imagenes
     implementation("io.coil-kt:coil-compose:2.5.0")
-    
-    // permisos
-    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
-
-    // hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     // viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+}
+
 }
