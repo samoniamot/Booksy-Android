@@ -20,10 +20,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.biblioteca.app.ui.viewmodel.PerfilViewModel
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
 
-@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PerfilScreen(
     onNavegar: (String) -> Unit
@@ -39,16 +37,7 @@ fun PerfilScreen(
     
     var mostrarDialogo by remember { mutableStateOf(false) }
     
-    val camaraPermiso = rememberPermissionState(
-        android.Manifest.permission.CAMERA
-    )
-    
-    val launcherCamara = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicture()
-    ) { exito ->
-        // imagen capturada
-    }
-    
+    // launcher para galeria
     val launcherGaleria = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -67,7 +56,7 @@ fun PerfilScreen(
                             onNavegar("login")
                         }
                     }) {
-                        Icon(Icons.Default.ExitToApp, "cerrar sesion")
+                        Icon(Icons.Default.ExitToApp, "salir")
                     }
                 }
             )
@@ -82,7 +71,7 @@ fun PerfilScreen(
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             
-            // foto de perfil
+            // imagen de perfil
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -91,7 +80,7 @@ fun PerfilScreen(
                 if (imagenUri != null) {
                     Image(
                         painter = rememberAsyncImagePainter(imagenUri),
-                        contentDescription = "foto perfil",
+                        contentDescription = "foto",
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(CircleShape),
@@ -116,7 +105,7 @@ fun PerfilScreen(
             if (cargando) {
                 CircularProgressIndicator()
             } else {
-                OutlinedCard(
+                Card(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
@@ -124,8 +113,7 @@ fun PerfilScreen(
                     ) {
                         Text(
                             text = "nombre",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = MaterialTheme.typography.labelSmall
                         )
                         Text(
                             text = nombre,
@@ -136,9 +124,8 @@ fun PerfilScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         
                         Text(
-                            text = "correo electronico",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            text = "correo",
+                            style = MaterialTheme.typography.labelSmall
                         )
                         Text(
                             text = email,
@@ -153,34 +140,19 @@ fun PerfilScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = error!!,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodySmall
+                    color = MaterialTheme.colorScheme.error
                 )
             }
         }
         
-        // dialogo para elegir camara o galeria
+        // dialogo simple para seleccionar foto
         if (mostrarDialogo) {
             AlertDialog(
                 onDismissRequest = { mostrarDialogo = false },
-                title = { Text("seleccionar foto") },
+                title = { Text("seleccionar imagen") },
                 text = {
                     Column {
-                        TextButton(
-                            onClick = {
-                                mostrarDialogo = false
-                                if (camaraPermiso.hasPermission) {
-                                    // abrir camara
-                                } else {
-                                    camaraPermiso.launchPermissionRequest()
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text("tomar foto")
-                        }
-                        
-                        TextButton(
+                        Button(
                             onClick = {
                                 mostrarDialogo = false
                                 launcherGaleria.launch("image/*")
