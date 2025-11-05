@@ -46,12 +46,17 @@ class RegistroViewModel(private val contexto: Context) : ViewModel() {
     
     fun registrar(onExito: () -> Unit) {
         if (_nombre.value.isEmpty() || _email.value.isEmpty() || _password.value.isEmpty()) {
-            _error.value = "todos los campos son obligatorios"
+            _error.value = "completa todo porfa"
+            return
+        }
+        
+        if (!_email.value.contains("@")) {
+            _error.value = "el correo esta mal escrito"
             return
         }
         
         if (_password.value.length < 6) {
-            _error.value = "la contraseña debe tener almenos 6 caracteres"
+            _error.value = "la clave debe ser mas larga"
             return
         }
         

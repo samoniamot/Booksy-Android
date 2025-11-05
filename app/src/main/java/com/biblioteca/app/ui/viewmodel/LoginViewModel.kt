@@ -37,7 +37,12 @@ class LoginViewModel(context: Context) : ViewModel() {
     
     fun login(onExito: () -> Unit) {
         if (_email.value.isBlank() || _password.value.isBlank()) {
-            _error.value = "completa todos los campos"
+            _error.value = "debes llenar todos los campos"
+            return
+        }
+        
+        if (!_email.value.contains("@")) {
+            _error.value = "el correo no es valido"
             return
         }
         
