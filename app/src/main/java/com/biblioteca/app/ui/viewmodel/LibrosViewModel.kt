@@ -1,6 +1,5 @@
 package com.biblioteca.app.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.biblioteca.app.data.api.RetrofitClient
@@ -9,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class LibrosViewModel(context: Context) : ViewModel() {
+class LibrosViewModel : ViewModel() {
     
     private val api = RetrofitClient.apiService
     

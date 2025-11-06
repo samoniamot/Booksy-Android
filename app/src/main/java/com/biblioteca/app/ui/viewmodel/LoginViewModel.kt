@@ -37,12 +37,7 @@ class LoginViewModel(context: Context) : ViewModel() {
     
     fun login(onExito: () -> Unit) {
         if (_email.value.isBlank() || _password.value.isBlank()) {
-            _error.value = "debes llenar todos los campos"
-            return
-        }
-        
-        if (!_email.value.contains("@")) {
-            _error.value = "el correo no es valido"
+            _error.value = "completa todos los campos"
             return
         }
         
@@ -60,7 +55,7 @@ class LoginViewModel(context: Context) : ViewModel() {
                     prefsRepo.guardarToken(datos.authToken)
                     onExito()
                 } else {
-                    _error.value = "credenciales incorrectas"
+                    _error.value = "error al iniciar sesion"
                 }
             } catch (e: Exception) {
                 _error.value = "error de conexion"
