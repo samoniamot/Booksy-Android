@@ -5,7 +5,6 @@ import androidx.compose.animation.core.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 
-// animacion simple para mostrar cosas
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimacionSimple(
