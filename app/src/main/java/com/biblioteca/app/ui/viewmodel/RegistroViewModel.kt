@@ -46,17 +46,12 @@ class RegistroViewModel(private val contexto: Context) : ViewModel() {
     
     fun registrar(onExito: () -> Unit) {
         if (_nombre.value.isEmpty() || _email.value.isEmpty() || _password.value.isEmpty()) {
-            _error.value = "completa todo porfa"
+            _error.value = "completa todos"
             return
         }
         
-        if (!_email.value.contains("@")) {
-            _error.value = "el correo esta mal escrito"
-            return
-        }
-        
-        if (_password.value.length < 6) {
-            _error.value = "la clave debe ser mas larga"
+        if (_password.value.length < 8) {
+            _error.value = "la contraseña debe tener al menos 8 caracteres"
             return
         }
         
@@ -78,7 +73,7 @@ class RegistroViewModel(private val contexto: Context) : ViewModel() {
                     preferencias.guardarToken(token)
                     onExito()
                 } else {
-                    _error.value = "el correo ya esta registrado"
+                    _error.value = "error inesperado"
                 }
             } catch (e: Exception) {
                 _error.value = "error de conexion"
