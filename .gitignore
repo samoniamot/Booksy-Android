@@ -11,3 +11,4 @@ captures/
 *.ap_
 *.aab
 documentos/
+*.hprof
