@@ -12,3 +12,5 @@ captures/
 *.aab
 documentos/
 *.hprof
+reescribir_fechas.sh
+reescribir_fechas_realistas.sh
