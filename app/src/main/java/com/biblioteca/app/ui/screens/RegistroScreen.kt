@@ -94,7 +94,7 @@ fun RegistroScreen(
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             } else {
-                Text("registrarse")
+                Text("Registrarse")
             }
         }
         
