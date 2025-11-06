@@ -66,7 +66,7 @@ class RegistroViewModel(private val contexto: Context) : ViewModel() {
         viewModelScope.launch {
             try {
                 val solicitud = SolicitudRegistro(
-                    nombre = _nombre.value,
+                    name = _nombre.value,
                     email = _email.value,
                     password = _password.value
                 )

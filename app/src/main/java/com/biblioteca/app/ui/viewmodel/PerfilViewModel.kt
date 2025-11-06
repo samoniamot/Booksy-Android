@@ -57,7 +57,7 @@ class PerfilViewModel(private val contexto: Context) : ViewModel() {
                 
                 if (respuesta.isSuccessful && respuesta.body() != null) {
                     val usuario = respuesta.body()!!
-                    _nombre.value = usuario.nombre
+                    _nombre.value = usuario.name ?: ""
                     _email.value = usuario.email
                 } else {
                     _error.value = "error al cargar perfil"

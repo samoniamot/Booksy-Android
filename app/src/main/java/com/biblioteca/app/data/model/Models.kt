@@ -3,7 +3,7 @@ package com.biblioteca.app.data.model
 data class Usuario(
     val id: Int,
     val email: String,
-    val nombre: String?
+    val name: String?
 )
 
 data class Libro(
