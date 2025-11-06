@@ -37,7 +37,6 @@ fun PerfilScreen(
     
     var mostrarDialogo by remember { mutableStateOf(false) }
     
-    // launcher para galeria
     val launcherGaleria = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
@@ -71,7 +70,6 @@ fun PerfilScreen(
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             
-            // imagen de perfil
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -145,7 +143,6 @@ fun PerfilScreen(
             }
         }
         
-        // dialogo simple para seleccionar foto
         if (mostrarDialogo) {
             AlertDialog(
                 onDismissRequest = { mostrarDialogo = false },
