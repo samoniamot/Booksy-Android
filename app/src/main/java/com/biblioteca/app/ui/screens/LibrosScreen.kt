@@ -19,8 +19,7 @@ import com.biblioteca.app.ui.viewmodel.LibrosViewModel
 fun LibrosScreen(
     onNavegar: (String) -> Unit
 ) {
-    val contexto = LocalContext.current
-    val viewModel = remember { LibrosViewModel(contexto) }
+    val viewModel = remember { LibrosViewModel() }
     
     val libros by viewModel.libros.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
