@@ -4,7 +4,6 @@ import com.biblioteca.app.data.model.RespuestaAuth
 import com.biblioteca.app.data.model.SolicitudLogin
 import com.biblioteca.app.data.model.SolicitudRegistro
 import com.biblioteca.app.data.model.Usuario
-import com.biblioteca.app.data.model.Libro
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -21,7 +20,4 @@ interface ApiService {
     
     @GET("auth/me")
     suspend fun obtenerPerfil(@Header("Authorization") token: String): Response<Usuario>
-    
-    @GET("books")
-    suspend fun obtenerLibros(): Response<List<Libro>>
 }
