@@ -2,28 +2,28 @@ Booksy spa - app de gestion de libros
 
 Booksy spa es una app para estudiantes y profesores, que quieren adminsitrar sus libros de estudio. es una biblioteca digital basicmanete.
 
-Tiene estas funcionalidades:
-- login y registro con validaciones basicas (contraseña minimo 8 caracteres)
-- una pantalla con libros en un grid de 2 columnas
-- pantalla de perfil para subir imagen desde la galeria
-- animaciones basicas con animatedvisibility
-- guardar datos en el telefono con sharedpreferences
-- se conecta con una api para traer datos
+funcionalidades:
+-login y registro con validaciones basicas (contraseña minimo 8 caracteres)
+-una pantalla con libros en un grid de 2 columnas
+-pantalla de perfil para subir imagen desde la galeria
+-animaciones basicas con animatedvisibility
+-guardar datos en el telefono con sharedpreferences
+-se conecta con una api para traer datos
 
 Lo que usamos para hacerla:
-- kotlin porque es lo que vimos en clase en fullstack
+- kotlin
 - jetpack compose para la interfaz
 - sharedpreferences para guardar el token y la foto de perfil
 - retrofit para llamar a la api
 - navigation compose para moverse entre las pantallas
 - coil para cargar imagenes
 
-la api swaggger es: https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW
+la api del Swaggger es: https://x8ki-letl-twmt.n7.xano.io/api:Rfm_61dW
 
 las llamadas Son:
-post /auth/login - para loguearte
+post /auth/login - para loguearse
 post /auth/signup - para crear cuenta
-get /auth/me - para ver tu perfil
+get /auth/me - para ver perfil
 get /books - para traer los libros
 
 -La arquitectura es mvvm, tiene los viewmodels para cada pantalla, y con stateflow para manejar el estado. 
