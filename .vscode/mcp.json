@@ -1,0 +1,41 @@
+{
+    "servers": {
+        // Chrome DevTools MCP server: connects to a local Brave browser at http://127.0.0.1:9222
+        // Requires Brave to be running with remote debugging enabled (e.g., via --remote-debugging-port=9222)
+        // Command to open Brave: open -a "Brave Browser" --args --remote-debugging-port=9222
+        // Note: Brave must be started with the above command for MCP to work. Cannot be enabled on a running instance. Verify if already open
+        "chrome-devtools": {
+            "command": "npx",
+            "args": ["-y", "chrome-devtools-mcp@latest", "--browser-url=http://127.0.0.1:9222"]
+        },
+        // AWS API MCP Server: Interactúa con servicios de AWS usando la AWS API
+        "aws-api": {
+            "command": "uvx",
+            "args": ["awslabs.aws-api-mcp-server@latest"],
+            "env": {
+                "AWS_REGION": "us-east-1"
+            }
+        },
+        // AWS Knowledge MCP Server: Acceso a documentación de AWS, guías y mejores prácticas
+        "aws-knowledge": {
+            "type": "http",
+            "url": "https://knowledge-mcp.global.api.aws"
+        },
+        "supabase_uzodckcryfdldshxnocq_campo_feliz": {
+            "type": "http",
+            "url": "https://mcp.supabase.com/mcp",
+            "headers": {
+                "Authorization": "Bearer sbp_0d1baa4dbdbc0bf9872a1ee5a947fbb91db85dcc",
+                "project_ref": "uzodckcryfdldshxnocq"
+            }
+        },
+        "supabase_avicolaelporvenir": {
+            "type": "http",
+            "url": "https://mcp.supabase.com/mcp",
+            "headers": {
+                "Authorization": "Bearer sbp_b60df38be18a9dc48587b23e2c7f8da1eac05167",
+                "project_ref": "aobcbszqpzerccdojwvv"
+            }
+        }
+    }
+}

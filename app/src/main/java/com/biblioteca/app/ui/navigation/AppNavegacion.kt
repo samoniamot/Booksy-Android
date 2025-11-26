@@ -49,7 +49,7 @@ fun AppNavegacion() {
             )
         }
         
-        composable("prefil") {
+        composable("perfil") {
             PerfilScreen(
                 onNavegar = { ruta ->
                     if (ruta == "login") {
