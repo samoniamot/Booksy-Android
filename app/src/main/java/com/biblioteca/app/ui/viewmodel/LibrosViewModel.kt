@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class LibrosViewModel : ViewModel() {
+open class LibrosViewModel : ViewModel() {
     
     private val repositorio = LibrosRepository()
     
@@ -16,7 +16,7 @@ class LibrosViewModel : ViewModel() {
     val libros: StateFlow<List<Libro>> = _libros
     
     private val _librosFiltrados = MutableStateFlow<List<Libro>>(emptyList())
-    val librosFiltrados: StateFlow<List<Libro>> = _librosFiltrados
+    open val librosFiltrados: StateFlow<List<Libro>> = _librosFiltrados
     
     private val _cargando = MutableStateFlow(false)
     val cargando: StateFlow<Boolean> = _cargando
