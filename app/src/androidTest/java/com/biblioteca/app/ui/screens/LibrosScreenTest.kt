@@ -30,7 +30,7 @@ class LibrosScreenTest {
             LibrosScreenConViewModel(viewModel = viewModelFalso)
         }
 
-        reglaCompose.onNodeWithText("libro de prueba 1").assertIsDisplayed()
-        reglaCompose.onNodeWithText("libro de prueba 2").assertIsDisplayed()
+        reglaCompose.onNodeWithText("libro de prueba uno").assertIsDisplayed()
+        reglaCompose.onNodeWithText("libro de prueba dos").assertIsDisplayed()
     }
 }
