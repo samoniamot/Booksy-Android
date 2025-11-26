@@ -19,7 +19,15 @@ fun LibrosScreen(
     onNavegar: (String) -> Unit
 ) {
     val viewModel = remember { LibrosViewModel() }
-    
+    LibrosScreenConViewModel(viewModel = viewModel, onNavegar = onNavegar)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LibrosScreenConViewModel(
+    viewModel: LibrosViewModel,
+    onNavegar: (String) -> Unit = {}
+) {
     val librosFiltrados by viewModel.librosFiltrados.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
     val error by viewModel.error.collectAsState()
