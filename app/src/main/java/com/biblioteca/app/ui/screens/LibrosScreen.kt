@@ -1,16 +1,15 @@
 package com.biblioteca.app.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.biblioteca.app.ui.viewmodel.LibrosViewModel
 
@@ -21,16 +20,17 @@ fun LibrosScreen(
 ) {
     val viewModel = remember { LibrosViewModel() }
     
-    val libros by viewModel.libros.collectAsState()
+    val librosFiltrados by viewModel.librosFiltrados.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
     val error by viewModel.error.collectAsState()
+    val busqueda by viewModel.busqueda.collectAsState()
     
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("mis libros") },
                 actions = {
-                    IconButton(onClick = { onNavegar("prefil") }) {
+                    IconButton(onClick = { onNavegar("perfil") }) {
                         Icon(Icons.Default.AccountCircle, "perfil")
                     }
                 }
@@ -42,6 +42,17 @@ fun LibrosScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
+            OutlinedTextField(
+                value = busqueda,
+                onValueChange = { viewModel.buscar(it) },
+                label = { Text("buscar por titulo") },
+                leadingIcon = { Icon(Icons.Default.Search, null) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                singleLine = true
+            )
+            
             if (cargando) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -65,7 +76,7 @@ fun LibrosScreen(
                         }
                     }
                 }
-            } else if (libros.isEmpty()) {
+            } else if (librosFiltrados.isEmpty()) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -73,46 +84,29 @@ fun LibrosScreen(
                     Text("no hay libros disponibles")
                 }
             } else {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                LazyColumn(
                     contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(libros) { libro ->
+                    items(librosFiltrados) { libro ->
                         Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(180.dp)
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             Column(
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(12.dp),
-                                verticalArrangement = Arrangement.SpaceBetween
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
                             ) {
                                 Text(
                                     text = libro.titulo,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    maxLines = 2
+                                    style = MaterialTheme.typography.titleMedium
                                 )
-                                
-                                Column {
-                                    if (libro.autor != null) {
-                                        Text(
-                                            text = libro.autor,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                                        )
-                                    }
-                                    if (libro.categoria != null) {
-                                        Text(
-                                            text = libro.categoria,
-                                            style = MaterialTheme.typography.labelSmall,
-                                            color = MaterialTheme.colorScheme.primary
-                                        )
-                                    }
-                                }
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = libro.contenido,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    maxLines = 3
+                                )
                             }
                         }
                     }
