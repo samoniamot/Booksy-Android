@@ -53,7 +53,7 @@ fun LibrosScreenConViewModel(
             OutlinedTextField(
                 value = busqueda,
                 onValueChange = { viewModel.buscar(it) },
-                label = { Text("buscar por titulo") },
+                label = { Text("buscar libro") },
                 leadingIcon = { Icon(Icons.Default.Search, null) },
                 modifier = Modifier
                     .fillMaxWidth()
