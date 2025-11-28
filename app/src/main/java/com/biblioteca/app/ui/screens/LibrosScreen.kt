@@ -113,7 +113,7 @@ fun LibrosScreenConViewModel(
                                 Text(
                                     text = libro.contenido,
                                     style = MaterialTheme.typography.bodySmall,
-                                    maxLines = 3
+                                    maxLines = 2
                                 )
                             }
                         }
