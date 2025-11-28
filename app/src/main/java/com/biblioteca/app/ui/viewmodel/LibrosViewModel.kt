@@ -40,7 +40,7 @@ open class LibrosViewModel : ViewModel() {
                 _libros.value = lista
                 _librosFiltrados.value = lista
             } catch (e: Exception) {
-                _error.value = "error al cargar libros"
+                _error.value = "no se pudieron cargar los libros"
             } finally {
                 _cargando.value = false
             }
