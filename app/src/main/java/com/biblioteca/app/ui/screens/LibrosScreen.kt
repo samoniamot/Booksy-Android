@@ -57,7 +57,7 @@ fun LibrosScreenConViewModel(
                 leadingIcon = { Icon(Icons.Default.Search, null) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(12.dp),
                 singleLine = true
             )
             
@@ -103,7 +103,7 @@ fun LibrosScreenConViewModel(
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp)
+                                    .padding(12.dp)
                             ) {
                                 Text(
                                     text = libro.titulo,
