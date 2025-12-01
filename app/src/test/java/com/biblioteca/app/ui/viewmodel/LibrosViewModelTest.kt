@@ -18,7 +18,7 @@ class LibrosViewModelTest : StringSpec({
 
     "debe contener libros despues de cargar" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "titulo 1", body = "contenido 1"),
+            Libro(userId = 1, id = 1, title = "primer libro", body = "contenido 1"),
             Libro(userId = 2, id = 2, title = "titulo 2", body = "contenido 2")
         )
         
