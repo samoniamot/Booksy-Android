@@ -89,7 +89,7 @@ fun LibrosScreenConViewModel(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("no hay libros disponibles")
+                    Text("no encontramos libros")
                 }
             } else {
                 LazyColumn(
