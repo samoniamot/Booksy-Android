@@ -36,7 +36,7 @@ fun LibrosScreenConViewModel(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("mis libros") },
+                title = { Text("catalogo") },
                 actions = {
                     IconButton(onClick = { onNavegar("perfil") }) {
                         Icon(Icons.Default.AccountCircle, "perfil")
