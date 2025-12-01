@@ -109,7 +109,7 @@ fun LibrosScreenConViewModel(
                                     text = libro.titulo,
                                     style = MaterialTheme.typography.titleMedium
                                 )
-                                Spacer(modifier = Modifier.height(8.dp))
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = libro.contenido,
                                     style = MaterialTheme.typography.bodySmall,
