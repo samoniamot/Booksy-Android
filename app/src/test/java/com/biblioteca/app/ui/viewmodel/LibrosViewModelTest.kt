@@ -18,7 +18,7 @@ class LibrosViewModelTest : StringSpec({
 
     "debe contener libros despues de cargar" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "primer libro", body = "contenido 1"),
+            Libro(userId = 1, id = 1, title = "primer libro", body = "descripcion del libro"),
             Libro(userId = 2, id = 2, title = "segundo libro", body = "contenido 2")
         )
         
@@ -30,7 +30,7 @@ class LibrosViewModelTest : StringSpec({
 
     "el filtro debe funcionar por titulo" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "kotlin basico", body = "contenido 1"),
+            Libro(userId = 1, id = 1, title = "kotlin basico", body = "descripcion del libro"),
             Libro(userId = 2, id = 2, title = "java avanzado", body = "contenido 2"),
             Libro(userId = 3, id = 3, title = "kotlin avanzado", body = "contenido 3")
         )
