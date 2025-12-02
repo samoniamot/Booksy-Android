@@ -45,7 +45,7 @@ class LibrosViewModelTest : StringSpec({
     "busqueda vacia debe mostrar todos los libros" {
         val librosFalsos = listOf(
             Libro(userId = 1, id = 1, title = "android basics", body = "contenido"),
-            Libro(userId = 2, id = 2, title = "libro dos", body = "contenido")
+            Libro(userId = 2, id = 2, title = "compose guide", body = "contenido")
         )
         
         val viewModel = LibrosViewModelFalso()
