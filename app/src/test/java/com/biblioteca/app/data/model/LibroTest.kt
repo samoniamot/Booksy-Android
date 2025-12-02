@@ -5,18 +5,36 @@ import io.kotest.matchers.shouldBe
 
 class LibroTest : StringSpec({
 
-    "el titulo debe coincidir con title" {
-        val libro = Libro(userId = 1, id = 1, title = "mi titulo", body = "contenido")
+    "el titulo debe ser correcto" {
+        val libro = Libro(
+            id = "1",
+            titulo = "mi titulo",
+            descripcion = "descripcion del libro",
+            imagen = "https://ejemplo.com/imagen.jpg",
+            precio = 15990.0
+        )
         libro.titulo shouldBe "mi titulo"
     }
 
-    "el contenido debe coincidir con body" {
-        val libro = Libro(userId = 1, id = 1, title = "titulo", body = "mi contenido")
-        libro.contenido shouldBe "mi contenido"
+    "la descripcion debe ser correcta" {
+        val libro = Libro(
+            id = "1",
+            titulo = "titulo",
+            descripcion = "mi descripcion",
+            imagen = "https://ejemplo.com/imagen.jpg",
+            precio = 15990.0
+        )
+        libro.descripcion shouldBe "mi descripcion"
     }
 
-    "el autorId debe coincidir con userId" {
-        val libro = Libro(userId = 5, id = 1, title = "titulo", body = "contenido")
-        libro.autorId shouldBe 5
+    "el precio debe ser correcto" {
+        val libro = Libro(
+            id = "1",
+            titulo = "titulo",
+            descripcion = "descripcion",
+            imagen = "https://ejemplo.com/imagen.jpg",
+            precio = 12500.0
+        )
+        libro.precio shouldBe 12500.0
     }
 })
