@@ -18,8 +18,8 @@ class LibrosViewModelTest : StringSpec({
 
     "debe contener libros despues de cargar" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "primer libro", body = "descripcion del libro"),
-            Libro(userId = 2, id = 2, title = "segundo libro", body = "contenido 2")
+            Libro(id = "1", titulo = "primer libro", descripcion = "descripcion del libro", imagen = "https://ejemplo.com/1.jpg", precio = 15990.0),
+            Libro(id = "2", titulo = "segundo libro", descripcion = "contenido 2", imagen = "https://ejemplo.com/2.jpg", precio = 12500.0)
         )
         
         val viewModel = LibrosViewModelFalso()
@@ -30,9 +30,9 @@ class LibrosViewModelTest : StringSpec({
 
     "el filtro debe funcionar por titulo" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "kotlin basico", body = "descripcion del libro"),
-            Libro(userId = 2, id = 2, title = "java avanzado", body = "contenido 2"),
-            Libro(userId = 3, id = 3, title = "kotlin avanzado", body = "contenido 3")
+            Libro(id = "1", titulo = "kotlin basico", descripcion = "descripcion del libro", imagen = "https://ejemplo.com/1.jpg", precio = 15990.0),
+            Libro(id = "2", titulo = "java avanzado", descripcion = "contenido 2", imagen = "https://ejemplo.com/2.jpg", precio = 12500.0),
+            Libro(id = "3", titulo = "kotlin avanzado", descripcion = "contenido 3", imagen = "https://ejemplo.com/3.jpg", precio = 18990.0)
         )
         
         val viewModel = LibrosViewModelFalso()
@@ -44,8 +44,8 @@ class LibrosViewModelTest : StringSpec({
 
     "busqueda vacia debe mostrar todos los libros" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "android basics", body = "contenido"),
-            Libro(userId = 2, id = 2, title = "compose guide", body = "contenido")
+            Libro(id = "1", titulo = "android basics", descripcion = "contenido", imagen = "https://ejemplo.com/1.jpg", precio = 15990.0),
+            Libro(id = "2", titulo = "compose guide", descripcion = "contenido", imagen = "https://ejemplo.com/2.jpg", precio = 12500.0)
         )
         
         val viewModel = LibrosViewModelFalso()
@@ -76,7 +76,7 @@ class LibrosViewModelFalso {
         _librosFiltrados.value = if (texto.isEmpty()) {
             _libros.value
         } else {
-            _libros.value.filter { it.title.lowercase().contains(texto.lowercase()) }
+            _libros.value.filter { it.titulo.lowercase().contains(texto.lowercase()) }
         }
     }
 }

@@ -5,7 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object LibrosRetrofitClient {
     
-    private const val URL_BASE = "https://jsonplaceholder.typicode.com/"
+    // Backend desplegado en Render
+    private const val URL_BASE = "https://booksy-backend-jkte.onrender.com/"
     
     val servicioLibros: LibrosApiService by lazy {
         Retrofit.Builder()

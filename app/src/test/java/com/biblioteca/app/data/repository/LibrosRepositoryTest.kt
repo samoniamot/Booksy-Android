@@ -12,8 +12,8 @@ class LibrosRepositoryTest : StringSpec({
 
     "obtenerLibros debe retornar lista de libros" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "titulo 1", body = "resumen del libro uno"),
-            Libro(userId = 2, id = 2, title = "titulo 2", body = "cuerpo 2")
+            Libro(id = "1", titulo = "titulo 1", descripcion = "resumen del libro uno", imagen = "https://ejemplo.com/1.jpg", precio = 15990.0),
+            Libro(id = "2", titulo = "titulo 2", descripcion = "cuerpo 2", imagen = "https://ejemplo.com/2.jpg", precio = 12500.0)
         )
         
         val apiMock = mockk<LibrosApiService>()

@@ -58,7 +58,8 @@ open class LibrosViewModel : ViewModel() {
             _libros.value
         } else {
             _libros.value.filter { libro ->
-                libro.titulo.lowercase().contains(texto)
+                libro.titulo.lowercase().contains(texto) ||
+                libro.descripcion.lowercase().contains(texto)
             }
         }
     }

@@ -7,15 +7,12 @@ data class Usuario(
 )
 
 data class Libro(
-    val userId: Int,
-    val id: Int,
-    val title: String,
-    val body: String
-) {
-    val titulo: String get() = title
-    val contenido: String get() = body
-    val autorId: Int get() = userId
-}
+    val id: String? = null,
+    val titulo: String,
+    val descripcion: String,
+    val imagen: String,
+    val precio: Double
+)
 
 data class SolicitudLogin(
     val email: String,

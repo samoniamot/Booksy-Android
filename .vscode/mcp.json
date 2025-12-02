@@ -4,7 +4,7 @@
         // Requires Brave to be running with remote debugging enabled (e.g., via --remote-debugging-port=9222)
         // Command to open Brave: open -a "Brave Browser" --args --remote-debugging-port=9222
         // Note: Brave must be started with the above command for MCP to work. Cannot be enabled on a running instance. Verify if already open
-        "chrome-devtools": {
+        "chrome-devtools-mcp": {
             "command": "npx",
             "args": ["-y", "chrome-devtools-mcp@latest", "--browser-url=http://127.0.0.1:9222"]
         },
@@ -36,6 +36,12 @@
                 "Authorization": "Bearer sbp_b60df38be18a9dc48587b23e2c7f8da1eac05167",
                 "project_ref": "aobcbszqpzerccdojwvv"
             }
+        },
+        // Docker MCP Toolkit: Gestión de contenedores Docker desde VS Code
+        "docker-mcp": {
+            "command": "docker",
+            "args": ["mcp", "gateway", "run"],
+            "type": "stdio"
         }
     }
 }

@@ -3,6 +3,7 @@ package com.biblioteca.app.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
@@ -10,7 +11,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.biblioteca.app.ui.viewmodel.LibrosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -100,21 +104,40 @@ fun LibrosScreenConViewModel(
                         Card(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Column(
+                            Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(12.dp)
                             ) {
-                                Text(
-                                    text = libro.titulo,
-                                    style = MaterialTheme.typography.titleMedium
+                                AsyncImage(
+                                    model = libro.imagen,
+                                    contentDescription = libro.titulo,
+                                    modifier = Modifier
+                                        .size(80.dp)
+                                        .clip(RoundedCornerShape(8.dp)),
+                                    contentScale = ContentScale.Crop
                                 )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = libro.contenido,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    maxLines = 2
-                                )
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Column(
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        text = libro.titulo,
+                                        style = MaterialTheme.typography.titleMedium
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = libro.descripcion,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        maxLines = 2
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = "$${libro.precio.toInt()}",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
                             }
                         }
                     }

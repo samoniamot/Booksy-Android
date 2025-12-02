@@ -18,8 +18,8 @@ class LibrosScreenTest {
     @Test
     fun el_titulo_del_libro_debe_aparecer_en_pantalla() {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "libro de prueba uno", body = "contenido uno"),
-            Libro(userId = 2, id = 2, title = "libro de prueba dos", body = "contenido dos")
+            Libro(id = "1", titulo = "libro de prueba uno", descripcion = "contenido uno", imagen = "https://ejemplo.com/1.jpg", precio = 15990.0),
+            Libro(id = "2", titulo = "libro de prueba dos", descripcion = "contenido dos", imagen = "https://ejemplo.com/2.jpg", precio = 12500.0)
         )
 
         val viewModelFalso = object : LibrosViewModel() {
