@@ -12,7 +12,7 @@ class LibrosRepositoryTest : StringSpec({
 
     "obtenerLibros debe retornar lista de libros" {
         val librosFalsos = listOf(
-            Libro(userId = 1, id = 1, title = "titulo 1", body = "cuerpo 1"),
+            Libro(userId = 1, id = 1, title = "titulo 1", body = "resumen del libro uno"),
             Libro(userId = 2, id = 2, title = "titulo 2", body = "cuerpo 2")
         )
         
