@@ -60,10 +60,12 @@ class PerfilViewModel(private val contexto: Context) : ViewModel() {
                     _nombre.value = usuario.name ?: ""
                     _email.value = usuario.email
                 } else {
-                    _error.value = "error al cargar perfil"
+                    _nombre.value = preferencias.obtenerNombreUsuario()
+                    _email.value = preferencias.obtenerEmailUsuario()
                 }
             } catch (e: Exception) {
-                _error.value = "error de coneccion"
+                _nombre.value = preferencias.obtenerNombreUsuario()
+                _email.value = preferencias.obtenerEmailUsuario()
             } finally {
                 _cargando.value = false
             }
