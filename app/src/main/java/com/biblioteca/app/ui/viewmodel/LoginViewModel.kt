@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.biblioteca.app.data.api.RetrofitClient
+import com.biblioteca.app.data.model.Rol
 import com.biblioteca.app.data.model.SolicitudLogin
 import com.biblioteca.app.data.repository.PreferenciasRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,15 @@ class LoginViewModel(context: Context) : ViewModel() {
         _password.value = nuevoPassword
     }
     
+    private fun asignarRol(email: String): Rol {
+        return when {
+            email.contains("admin") -> Rol.ADMIN
+            email.contains("editor") -> Rol.EDITOR
+            email.contains("invitado") -> Rol.INVITADO
+            else -> Rol.LECTOR
+        }
+    }
+    
     fun login(onExito: () -> Unit) {
         if (_email.value.isBlank() || _password.value.isBlank()) {
             _error.value = "completa todos los campos"
@@ -53,6 +63,9 @@ class LoginViewModel(context: Context) : ViewModel() {
                 if (respuesta.isSuccessful && respuesta.body() != null) {
                     val datos = respuesta.body()!!
                     prefsRepo.guardarToken(datos.authToken)
+                    prefsRepo.guardarEmailUsuario(_email.value)
+                    prefsRepo.guardarNombreUsuario(datos.user.name ?: "")
+                    prefsRepo.guardarRol(asignarRol(_email.value))
                     onExito()
                 } else {
                     _error.value = "error al iniciar sesion"

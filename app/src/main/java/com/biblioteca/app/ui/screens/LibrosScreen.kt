@@ -16,8 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.biblioteca.app.data.model.Rol
+import com.biblioteca.app.data.repository.PreferenciasRepository
 import com.biblioteca.app.ui.viewmodel.LibrosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,6 +38,14 @@ fun LibrosScreenConViewModel(
     viewModel: LibrosViewModel,
     onNavegar: (String) -> Unit = {}
 ) {
+    val contexto = LocalContext.current
+    val prefsRepo = remember { PreferenciasRepository(contexto) }
+    val rolUsuario = prefsRepo.obtenerRol()
+    
+    val puedeAgregar = rolUsuario == Rol.ADMIN || rolUsuario == Rol.EDITOR
+    val puedeEditar = rolUsuario == Rol.ADMIN || rolUsuario == Rol.EDITOR
+    val puedeEliminar = rolUsuario == Rol.ADMIN
+    
     val librosFiltrados by viewModel.librosFiltrados.collectAsState()
     val cargando by viewModel.cargando.collectAsState()
     val error by viewModel.error.collectAsState()
@@ -54,8 +65,10 @@ fun LibrosScreenConViewModel(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onNavegar("agregar_libro") }) {
-                Icon(Icons.Default.Add, "agregar libro")
+            if (puedeAgregar) {
+                FloatingActionButton(onClick = { onNavegar("agregar_libro") }) {
+                    Icon(Icons.Default.Add, "agregar libro")
+                }
             }
         }
     ) { padding ->
@@ -152,23 +165,27 @@ fun LibrosScreenConViewModel(
                                         modifier = Modifier.fillMaxWidth(),
                                         horizontalArrangement = Arrangement.End
                                     ) {
-                                        IconButton(
-                                            onClick = { onNavegar("editar_libro/${libro.id}") }
-                                        ) {
-                                            Icon(
-                                                Icons.Default.Edit,
-                                                "editar",
-                                                tint = MaterialTheme.colorScheme.primary
-                                            )
+                                        if (puedeEditar) {
+                                            IconButton(
+                                                onClick = { onNavegar("editar_libro/${libro.id}") }
+                                            ) {
+                                                Icon(
+                                                    Icons.Default.Edit,
+                                                    "editar",
+                                                    tint = MaterialTheme.colorScheme.primary
+                                                )
+                                            }
                                         }
-                                        IconButton(
-                                            onClick = { libroAEliminar = libro.id }
-                                        ) {
-                                            Icon(
-                                                Icons.Default.Delete,
-                                                "eliminar",
-                                                tint = MaterialTheme.colorScheme.error
-                                            )
+                                        if (puedeEliminar) {
+                                            IconButton(
+                                                onClick = { libroAEliminar = libro.id }
+                                            ) {
+                                                Icon(
+                                                    Icons.Default.Delete,
+                                                    "eliminar",
+                                                    tint = MaterialTheme.colorScheme.error
+                                                )
+                                            }
                                         }
                                     }
                                 }

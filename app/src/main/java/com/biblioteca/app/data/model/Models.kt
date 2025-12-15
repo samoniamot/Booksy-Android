@@ -1,9 +1,17 @@
 package com.biblioteca.app.data.model
 
+enum class Rol {
+    ADMIN,
+    EDITOR,
+    LECTOR,
+    INVITADO
+}
+
 data class Usuario(
     val id: Int,
     val email: String,
-    val name: String?
+    val name: String?,
+    val rol: Rol = Rol.LECTOR
 )
 
 data class Libro(
