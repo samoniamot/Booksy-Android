@@ -52,6 +52,17 @@ open class LibrosViewModel : ViewModel() {
         filtrar()
     }
     
+    fun eliminarLibro(id: String) {
+        viewModelScope.launch {
+            try {
+                repositorio.eliminarLibro(id)
+                cargarLibros()
+            } catch (e: Exception) {
+                _error.value = "error al eliminar libro"
+            }
+        }
+    }
+    
     private fun filtrar() {
         val texto = _busqueda.value.lowercase()
         _librosFiltrados.value = if (texto.isEmpty()) {

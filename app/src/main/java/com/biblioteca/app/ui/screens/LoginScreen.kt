@@ -89,5 +89,9 @@ fun LoginScreen(
         TextButton(onClick = { onNavegar("regitsro") }) {
             Text("no tienes cuenta? Registrate")
         }
+        
+        TextButton(onClick = { onNavegar("recuperar") }) {
+            Text("olvidaste tu contrasena?")
+        }
     }
 }

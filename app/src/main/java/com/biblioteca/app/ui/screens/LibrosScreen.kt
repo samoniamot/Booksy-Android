@@ -6,6 +6,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -37,6 +40,8 @@ fun LibrosScreenConViewModel(
     val error by viewModel.error.collectAsState()
     val busqueda by viewModel.busqueda.collectAsState()
     
+    var libroAEliminar by remember { mutableStateOf<String?>(null) }
+    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,6 +52,11 @@ fun LibrosScreenConViewModel(
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { onNavegar("agregar_libro") }) {
+                Icon(Icons.Default.Add, "agregar libro")
+            }
         }
     ) { padding ->
         Column(
@@ -137,6 +147,30 @@ fun LibrosScreenConViewModel(
                                         style = MaterialTheme.typography.labelLarge,
                                         color = MaterialTheme.colorScheme.primary
                                     )
+                                    
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.End
+                                    ) {
+                                        IconButton(
+                                            onClick = { onNavegar("editar_libro/${libro.id}") }
+                                        ) {
+                                            Icon(
+                                                Icons.Default.Edit,
+                                                "editar",
+                                                tint = MaterialTheme.colorScheme.primary
+                                            )
+                                        }
+                                        IconButton(
+                                            onClick = { libroAEliminar = libro.id }
+                                        ) {
+                                            Icon(
+                                                Icons.Default.Delete,
+                                                "eliminar",
+                                                tint = MaterialTheme.colorScheme.error
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -144,5 +178,28 @@ fun LibrosScreenConViewModel(
                 }
             }
         }
+    }
+    
+    if (libroAEliminar != null) {
+        AlertDialog(
+            onDismissRequest = { libroAEliminar = null },
+            title = { Text("eliminar libro") },
+            text = { Text("estas seguro de que quieres eliminar este libro?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.eliminarLibro(libroAEliminar!!)
+                        libroAEliminar = null
+                    }
+                ) {
+                    Text("si eliminar")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { libroAEliminar = null }) {
+                    Text("cancelar")
+                }
+            }
+        )
     }
 }

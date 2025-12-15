@@ -4,9 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.biblioteca.app.ui.screens.AgregarLibroScreen
+import com.biblioteca.app.ui.screens.EditarLibroScreen
 import com.biblioteca.app.ui.screens.LibrosScreen
 import com.biblioteca.app.ui.screens.LoginScreen
 import com.biblioteca.app.ui.screens.PerfilScreen
+import com.biblioteca.app.ui.screens.RecuperarContrasenaScreen
 import com.biblioteca.app.ui.screens.RegistroScreen
 
 @Composable
@@ -41,11 +44,33 @@ fun AppNavegacion() {
             )
         }
         
+        composable("recuperar") {
+            RecuperarContrasenaScreen(
+                onVolver = { navController.popBackStack() }
+            )
+        }
+        
         composable("libros") {
             LibrosScreen(
                 onNavegar = { ruta ->
                     navController.navigate(ruta)
                 }
+            )
+        }
+        
+        composable("agregar_libro") {
+            AgregarLibroScreen(
+                onVolver = { navController.popBackStack() }
+            )
+        }
+        
+        composable(
+            route = "editar_libro/{libroId}"
+        ) { backStackEntry ->
+            val libroId = backStackEntry.arguments?.getString("libroId") ?: ""
+            EditarLibroScreen(
+                libroId = libroId,
+                onVolver = { navController.popBackStack() }
             )
         }
         

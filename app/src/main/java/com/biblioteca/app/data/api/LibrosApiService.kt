@@ -16,12 +16,21 @@ interface LibrosApiService {
     @GET("api/libros/{id}")
     suspend fun obtenerLibroPorId(@Path("id") id: String): Libro
     
+    @GET("api/libros/{id}")
+    suspend fun obtenerLibro(@Path("id") id: Long): Libro
+    
     @POST("api/libros")
     suspend fun crearLibro(@Body libro: Libro): Libro
     
     @PUT("api/libros/{id}")
     suspend fun actualizarLibro(@Path("id") id: String, @Body libro: Libro): Libro
     
+    @PUT("api/libros/{id}")
+    suspend fun actualizarLibro(@Path("id") id: Long, @Body libro: Libro): Libro
+    
     @DELETE("api/libros/{id}")
     suspend fun eliminarLibro(@Path("id") id: String)
+    
+    @DELETE("api/libros/{id}")
+    suspend fun borrarLibro(@Path("id") id: Long)
 }
