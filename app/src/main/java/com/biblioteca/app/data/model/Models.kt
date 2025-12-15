@@ -19,7 +19,8 @@ data class Libro(
     val titulo: String,
     val descripcion: String,
     val imagen: String,
-    val precio: Double
+    val precio: Double,
+    val categoria: String = "General"
 )
 
 data class SolicitudLogin(
