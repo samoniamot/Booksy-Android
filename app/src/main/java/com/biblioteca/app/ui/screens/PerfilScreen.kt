@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import coil.compose.rememberAsyncImagePainter
+import com.biblioteca.app.data.model.Rol
+import com.biblioteca.app.data.repository.PreferenciasRepository
 import com.biblioteca.app.ui.viewmodel.PerfilViewModel
 import java.io.File
 
@@ -31,6 +33,8 @@ fun PerfilScreen(
 ) {
     val contexto = LocalContext.current
     val viewModel = remember { PerfilViewModel(contexto) }
+    val prefsRepo = remember { PreferenciasRepository(contexto) }
+    val rolUsuario = prefsRepo.obtenerRol()
     
     val nombre by viewModel.nombre.collectAsState()
     val email by viewModel.email.collectAsState()
@@ -151,6 +155,19 @@ fun PerfilScreen(
                 
                 Text("correo", fontSize = 12.sp)
                 Text(text = email, fontSize = 18.sp)
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                Text("rol", fontSize = 12.sp)
+                Text(
+                    text = when(rolUsuario) {
+                        Rol.ADMIN -> "administrador"
+                        Rol.EDITOR -> "editor"
+                        Rol.LECTOR -> "lector"
+                        Rol.INVITADO -> "invitado"
+                    },
+                    fontSize = 18.sp
+                )
             }
             
             if (error != null) {
