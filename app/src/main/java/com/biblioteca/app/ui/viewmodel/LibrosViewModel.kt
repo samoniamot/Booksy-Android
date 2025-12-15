@@ -27,6 +27,9 @@ open class LibrosViewModel : ViewModel() {
     private val _busqueda = MutableStateFlow("")
     val busqueda: StateFlow<String> = _busqueda
     
+    private val _categoriaSeleccionada = MutableStateFlow("Todos")
+    val categoriaSeleccionada: StateFlow<String> = _categoriaSeleccionada
+    
     init {
         cargarLibros()
     }
@@ -52,6 +55,11 @@ open class LibrosViewModel : ViewModel() {
         filtrar()
     }
     
+    fun filtrarPorCategoria(categoria: String) {
+        _categoriaSeleccionada.value = categoria
+        filtrar()
+    }
+
     fun eliminarLibro(id: String) {
         viewModelScope.launch {
             try {
@@ -65,13 +73,17 @@ open class LibrosViewModel : ViewModel() {
     
     private fun filtrar() {
         val texto = _busqueda.value.lowercase()
-        _librosFiltrados.value = if (texto.isEmpty()) {
-            _libros.value
-        } else {
-            _libros.value.filter { libro ->
+        val categoria = _categoriaSeleccionada.value
+        
+        _librosFiltrados.value = _libros.value.filter { libro ->
+            val coincideTexto = texto.isEmpty() || 
                 libro.titulo.lowercase().contains(texto) ||
                 libro.descripcion.lowercase().contains(texto)
-            }
+            
+            val coincideCategoria = categoria == "Todos" || 
+                libro.categoria.equals(categoria, ignoreCase = true)
+            
+            coincideTexto && coincideCategoria
         }
     }
 }
