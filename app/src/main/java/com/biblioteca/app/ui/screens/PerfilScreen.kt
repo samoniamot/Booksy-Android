@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -98,6 +99,11 @@ fun PerfilScreen(
         topBar = {
             TopAppBar(
                 title = { Text("perfil") },
+                navigationIcon = {
+                    IconButton(onClick = { onNavegar("libros") }) {
+                        Icon(Icons.Default.ArrowBack, "volver")
+                    }
+                },
                 actions = {
                     IconButton(onClick = {
                         viewModel.cerrarSesion {
