@@ -26,8 +26,4 @@ class LibrosRepository {
     suspend fun eliminarLibro(id: String) {
         api.eliminarLibro(id)
     }
-    
-    suspend fun eliminarLibro(id: Long) {
-        api.borrarLibro(id)
-    }
 }
