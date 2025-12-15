@@ -1,8 +1,10 @@
 package com.biblioteca.app.ui.screens
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -56,7 +58,7 @@ fun LibrosScreenConViewModel(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("catalogo") },
+                title = { Text("Catalogo") },
                 actions = {
                     IconButton(onClick = { onNavegar("perfil") }) {
                         Icon(Icons.Default.AccountCircle, "perfil")
@@ -80,13 +82,39 @@ fun LibrosScreenConViewModel(
             OutlinedTextField(
                 value = busqueda,
                 onValueChange = { viewModel.buscar(it) },
-                label = { Text("buscar libro") },
+                label = { Text("Buscar libro") },
                 leadingIcon = { Icon(Icons.Default.Search, null) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(12.dp),
                 singleLine = true
             )
+            
+            // filtros de categoria ultra basicos
+            val categoriaSeleccionada by viewModel.categoriaSeleccionada.collectAsState()
+            val categorias = listOf("Todos", "Ficcion", "No Ficcion", "Ciencia", "Historia", "Arte")
+            
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                categorias.forEach { cat ->
+                    TextButton(
+                        onClick = { viewModel.filtrarPorCategoria(cat) }
+                    ) {
+                        Text(
+                            text = cat,
+                            style = if (categoriaSeleccionada == cat) 
+                                MaterialTheme.typography.labelLarge 
+                            else 
+                                MaterialTheme.typography.labelMedium
+                        )
+                    }
+                }
+            }
             
             if (cargando) {
                 Box(
