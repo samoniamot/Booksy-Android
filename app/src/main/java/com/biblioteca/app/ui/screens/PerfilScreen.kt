@@ -1,5 +1,7 @@
 package com.biblioteca.app.ui.screens
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,8 +18,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import coil.compose.rememberAsyncImagePainter
 import com.biblioteca.app.ui.viewmodel.PerfilViewModel
+import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,12 +39,54 @@ fun PerfilScreen(
     val error by viewModel.error.collectAsState()
     
     var mostrarDialogo by remember { mutableStateOf(false) }
+    var uriCamara by remember { mutableStateOf<Uri?>(null) }
     
     val launcherGaleria = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
             viewModel.guardarImagen(it)
+        }
+    }
+    
+    val launcherCamara = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { exito ->
+        if (exito && uriCamara != null) {
+            viewModel.guardarImagen(uriCamara!!)
+        }
+    }
+    
+    val launcherPermisoCamara = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { permitido ->
+        if (permitido) {
+            val archivo = File(contexto.cacheDir, "foto_${System.currentTimeMillis()}.jpg")
+            uriCamara = FileProvider.getUriForFile(
+                contexto,
+                "${contexto.packageName}.provider",
+                archivo
+            )
+            launcherCamara.launch(uriCamara)
+        }
+    }
+    
+    fun abrirCamara() {
+        val tienePermiso = ContextCompat.checkSelfPermission(
+            contexto,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+        
+        if (tienePermiso) {
+            val archivo = File(contexto.cacheDir, "foto_${System.currentTimeMillis()}.jpg")
+            uriCamara = FileProvider.getUriForFile(
+                contexto,
+                "${contexto.packageName}.provider",
+                archivo
+            )
+            launcherCamara.launch(uriCamara)
+        } else {
+            launcherPermisoCamara.launch(Manifest.permission.CAMERA)
         }
     }
     
@@ -117,13 +164,26 @@ fun PerfilScreen(
                 onDismissRequest = { mostrarDialogo = false },
                 title = { Text("seleccionar imagen") },
                 text = {
-                    Button(
-                        onClick = {
-                            mostrarDialogo = false
-                            launcherGaleria.launch("image/*")
+                    Column {
+                        Button(
+                            onClick = {
+                                mostrarDialogo = false
+                                launcherGaleria.launch("image/*")
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("elegir de galeria")
                         }
-                    ) {
-                        Text("elegir de galeria")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Button(
+                            onClick = {
+                                mostrarDialogo = false
+                                abrirCamara()
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("tomar foto")
+                        }
                     }
                 },
                 confirmButton = {
