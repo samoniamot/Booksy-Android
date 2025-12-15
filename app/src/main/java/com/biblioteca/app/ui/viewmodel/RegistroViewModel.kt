@@ -46,12 +46,18 @@ class RegistroViewModel(private val contexto: Context) : ViewModel() {
     
     fun registrar(onExito: () -> Unit) {
         if (_nombre.value.isEmpty() || _email.value.isEmpty() || _password.value.isEmpty()) {
-            _error.value = "completa todos"
+            _error.value = "completa todos los campos"
+            return
+        }
+        
+        // validacion email basica
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(_email.value).matches()) {
+            _error.value = "el correo no es valido"
             return
         }
         
         if (_password.value.length < 8) {
-            _error.value = "la contraseña debe tener al menos 8 caracteres"
+            _error.value = "la contraseña debe tener minimo 8 caracteres"
             return
         }
         
