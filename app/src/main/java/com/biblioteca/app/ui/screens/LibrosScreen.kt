@@ -58,7 +58,7 @@ fun LibrosScreenConViewModel(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Catalogo") },
+                title = { Text("\uD83D\uDCDA Catalogo") },
                 actions = {
                     IconButton(onClick = { onNavegar("perfil") }) {
                         Icon(Icons.Default.AccountCircle, "perfil")
@@ -181,6 +181,12 @@ fun LibrosScreenConViewModel(
                                         text = libro.descripcion,
                                         style = MaterialTheme.typography.bodySmall,
                                         maxLines = 2
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = libro.categoria,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.secondary
                                     )
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
