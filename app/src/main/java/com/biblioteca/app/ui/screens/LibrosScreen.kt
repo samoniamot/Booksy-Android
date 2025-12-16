@@ -1,5 +1,6 @@
 package com.biblioteca.app.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -153,7 +154,9 @@ fun LibrosScreenConViewModel(
                 ) {
                     items(librosFiltrados) { libro ->
                         Card(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { onNavegar("detalle_libro/${libro.id}") }
                         ) {
                             Row(
                                 modifier = Modifier

@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.biblioteca.app.ui.screens.AgregarLibroScreen
+import com.biblioteca.app.ui.screens.DetalleLibroScreen
 import com.biblioteca.app.ui.screens.EditarLibroScreen
 import com.biblioteca.app.ui.screens.LibrosScreen
 import com.biblioteca.app.ui.screens.LoginScreen
@@ -60,6 +61,16 @@ fun AppNavegacion() {
         
         composable("agregar_libro") {
             AgregarLibroScreen(
+                onVolver = { navController.popBackStack() }
+            )
+        }
+        
+        composable(
+            route = "detalle_libro/{libroId}"
+        ) { backStackEntry ->
+            val libroId = backStackEntry.arguments?.getString("libroId") ?: ""
+            DetalleLibroScreen(
+                libroId = libroId,
                 onVolver = { navController.popBackStack() }
             )
         }
