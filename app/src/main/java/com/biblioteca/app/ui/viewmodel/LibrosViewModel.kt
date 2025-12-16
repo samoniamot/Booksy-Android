@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+// viewmodel para manejar la loigca de libros
 open class LibrosViewModel : ViewModel() {
     
+    // repositorio de libros
     private val repositorio = LibrosRepository()
     
     private val _libros = MutableStateFlow<List<Libro>>(emptyList())
