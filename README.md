@@ -114,6 +114,14 @@ backend en Render.com:
 
 https://booksy-backend-1.onrender.com
 
+
+
 api:
 https://booksy-backend-1.onrender.com/swagger-ui.html
 
+
+
+
+
+Presentacion:
+https://www.canva.com/design/DAG7rpowz5c/H3qnrQrSLhN6rwz7ozgymA/edit?utm_content=DAG7rpowz5c&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
