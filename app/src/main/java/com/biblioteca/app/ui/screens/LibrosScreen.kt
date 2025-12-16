@@ -54,13 +54,12 @@ fun LibrosScreenConViewModel(
     val error by viewModel.error.collectAsState()
     val busqueda by viewModel.busqueda.collectAsState()
     
-    // variable para saber que libro eliminar
     var libroAEliminar by remember { mutableStateOf<String?>(null) }
     
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("\uD83D\uDCDA Catalogo") },
+                title = { Text("📚 Catalogo") },
                 actions = {
                     IconButton(onClick = { onNavegar("perfil") }) {
                         Icon(Icons.Default.AccountCircle, "perfil")

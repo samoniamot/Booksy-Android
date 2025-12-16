@@ -122,16 +122,6 @@ fun DetalleLibroScreen(
                     text = libro!!.descripcion,
                     style = MaterialTheme.typography.bodyMedium
                 )
-                
-                Spacer(modifier = Modifier.height(24.dp))
-                
-                // boton comprar
-                Button(
-                    onClick = { /* TODO: implementar compra */ },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Comprar")
-                }
             }
         }
     }
